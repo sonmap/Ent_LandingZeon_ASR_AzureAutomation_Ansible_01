@@ -1,0 +1,8 @@
+key,subscription_key,network_key,name,address_prefix,create,purpose
+hub_public_entry,platform,hub,snet-public-entry,10.110.0.0/24,true,DR hub public entry subnet
+hub_shared,platform,hub,snet-shared,10.110.1.0/24,true,DR hub shared subnet
+spoke_vm,dev,spoke_vm,snet-vm,10.120.1.0/24,true,ASR target VM subnet
+spoke_aks,dev,spoke_aks,snet-aks,10.121.1.0/24,true,DR AKS subnet
+spoke_ai_app,dev,spoke_ai,snet-ai-app,10.122.1.0/24,true,DR AI app subnet
+spoke_ai_private_endpoints,dev,spoke_ai,snet-private-endpoints,10.122.2.0/24,true,DR private endpoint subnet
+test_failover,dev,spoke_vm,snet-test-failover,10.120.99.0/24,true,Isolated test failover subnet

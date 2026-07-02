@@ -1,0 +1,5 @@
+key,subscription_key,resource_group_key,name,address_space,location,create,purpose
+hub,platform,hub,vnet-land03-hub-krc-001,10.10.0.0/16,koreacentral,true,Primary Hub VNet
+spoke_vm,dev,dev,vnet-land03-spoke-vm-krc-001,10.20.0.0/16,koreacentral,true,Primary VM Spoke
+spoke_aks,dev,dev,vnet-land03-spoke-aks-krc-001,10.21.0.0/16,koreacentral,true,Primary AKS Spoke
+spoke_ai,dev,dev,vnet-land03-spoke-ai-krc-001,10.22.0.0/16,koreacentral,true,Primary AI and Private Endpoint Spoke
