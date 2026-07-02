@@ -1,0 +1,35 @@
+---
+- name: DR post failover VM configuration
+  hosts: dr_recovered_vms
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Print recovered host information
+      debug:
+        msg: "Recovered host={{ inventory_hostname }} ip={{ ansible_host | default('unknown') }}"
+
+    - name: Ensure waagent package is present on Ubuntu
+      apt:
+        name: walinuxagent
+        state: present
+        update_cache: true
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure application service is enabled and started
+      systemd:
+        name: "{{ app_service_name | default('nginx') }}"
+        state: started
+        enabled: true
+      ignore_errors: true
+
+    - name: Application local health check
+      uri:
+        url: "{{ app_health_url | default('http://127.0.0.1/') }}"
+        status_code: [200, 301, 302, 401, 403]
+      register: health_result
+      ignore_errors: true
+
+    - name: Show health check result
+      debug:
+        var: health_result.status

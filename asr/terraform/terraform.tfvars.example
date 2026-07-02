@@ -1,0 +1,6 @@
+subscription_id                  = "00000000-0000-0000-0000-000000000000"
+cache_storage_account_name       = "stland03asrcache001"
+primary_cache_resource_group_name = "rg-land03-dev-workloads"
+asr_resource_group_name          = "rg-land03-asr-jpe"
+recovery_services_vault_name     = "rsv-land03-krc-to-jpe-001"
+automation_account_name          = "aa-land03-dr-runbook-jpe"

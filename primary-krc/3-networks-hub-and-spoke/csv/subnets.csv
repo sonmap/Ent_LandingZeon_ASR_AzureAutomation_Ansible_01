@@ -1,0 +1,7 @@
+key,subscription_key,network_key,name,address_prefix,create,purpose
+hub_public_entry,platform,hub,snet-public-entry,10.10.0.0/24,true,Primary hub public entry subnet
+hub_shared,platform,hub,snet-shared,10.10.1.0/24,true,Primary hub shared subnet
+spoke_vm,dev,spoke_vm,snet-vm,10.20.1.0/24,true,Primary VM subnet
+spoke_aks,dev,spoke_aks,snet-aks,10.21.1.0/24,true,Primary AKS subnet
+spoke_ai_app,dev,spoke_ai,snet-ai-app,10.22.1.0/24,true,Primary AI app subnet
+spoke_ai_private_endpoints,dev,spoke_ai,snet-private-endpoints,10.22.2.0/24,true,Primary private endpoint subnet

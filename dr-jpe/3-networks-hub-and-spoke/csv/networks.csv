@@ -1,0 +1,5 @@
+key,subscription_key,resource_group_key,name,address_space,location,create,purpose
+hub,platform,hub,vnet-land03-hub-jpe-001,10.110.0.0/16,japaneast,true,DR Hub VNet
+spoke_vm,dev,dev,vnet-land03-spoke-vm-jpe-001,10.120.0.0/16,japaneast,true,ASR Target VM Spoke
+spoke_aks,dev,dev,vnet-land03-spoke-aks-jpe-001,10.121.0.0/16,japaneast,true,DR AKS Spoke
+spoke_ai,dev,dev,vnet-land03-spoke-ai-jpe-001,10.122.0.0/16,japaneast,true,DR AI and Private Endpoint Spoke

@@ -1,0 +1,41 @@
+---
+- name: AKS DR application scale-up and validation
+  hosts: dr_aks_admin
+  gather_facts: false
+
+  vars:
+    resource_group: "rg-land03-dr-dev-workloads-jpe"
+    aks_name: "aks-land03-jpe-001"
+    namespace: "prod"
+    deployment_name: "myapp"
+    replicas: 3
+
+  tasks:
+    - name: Get AKS credentials
+      shell: |
+        az aks get-credentials \
+          --resource-group {{ resource_group }} \
+          --name {{ aks_name }} \
+          --overwrite-existing
+      changed_when: false
+
+    - name: Scale DR application deployment
+      shell: |
+        kubectl scale deployment {{ deployment_name }} \
+          -n {{ namespace }} \
+          --replicas={{ replicas }}
+
+    - name: Wait for rollout
+      shell: |
+        kubectl rollout status deployment/{{ deployment_name }} -n {{ namespace }} --timeout=300s
+      changed_when: false
+
+    - name: Show service and pod status
+      shell: |
+        kubectl get pods,svc,ingress -n {{ namespace }} -o wide
+      register: aks_status
+      changed_when: false
+
+    - name: Print AKS status
+      debug:
+        var: aks_status.stdout_lines
