@@ -37,7 +37,8 @@ main.tf/providers.tf/versions.tf = 실행 엔진
 ├── asr/                         # ASR 전용 영역
 │   ├── terraform/                # Vault, Cache Storage, Automation Account
 │   └── scripts/                  # ASR 보호 등록 / Test Failover / Failover
-├── runbooks/azure-automation/    # ASR Recovery Plan 후처리 Runbook
+├── runbooks/                    # Runbook 운영 가이드
+│   └── azure-automation/         # ASR Recovery Plan 후처리 Runbook
 ├── ansible/                      # VM/AKS 후처리 자동화
 └── docs/                         # 설계/런북/검증 문서
 ```
@@ -136,8 +137,12 @@ DR AKS/PaaS/Network = Terraform으로 사전 생성
 
 - [DR Architecture](docs/architecture.md)
 - [Failover Runbook](docs/failover-runbook.md)
+- [Test Failover Runbook](docs/test-failover-runbook.md)
+- [Failback / Reprotect Runbook](docs/failback-runbook.md)
+- [Runbook RACI](docs/runbook-raci.md)
 - [Automation Strategy](docs/automation-strategy.md)
 - [Validation Checklist](docs/validation-checklist.md)
+- [Runbook Operations Guide](runbooks/README.md)
 
 ## 주의
 
