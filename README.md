@@ -4,14 +4,18 @@
 
 ## 중요한 정정
 
-초기 버전은 `primary-krc`와 `dr-jpe`에 CSV만 들어 있어 Terraform 실행 엔진이 부족했습니다. 현재는 각 stage에 `main.tf`, `providers.tf`, `versions.tf`, `outputs.tf`를 추가하여 다음 방식으로 직접 실행할 수 있도록 보완했습니다.
+초기 버전은 `primary-krc`와 `dr-jpe`에 CSV만 들어 있어 Terraform 실행 엔진이 부족했습니다. 이후 `main.tf`를 추가했으나, 현재는 운영 가독성을 위해 단일 `main.tf`를 제거하고 `00`, `10`, `20`, `30` 번호 체계로 분리했습니다.
 
 ```text
 CSV = 입력값
-main.tf/providers.tf/versions.tf = 실행 엔진
+00-*.tf = CSV locals / 공통 설정
+10-*.tf = data source / 참조 리소스
+20-*.tf = 핵심 인프라 리소스
+30-*.tf = 후속 리소스 / 연결 / PaaS / 자동화
+providers.tf / versions.tf / outputs.tf = 공통 Terraform 보조 파일
 ```
 
-즉, `terraform init/plan/apply`는 각 stage 디렉터리에서 수행합니다.
+Terraform은 같은 디렉터리의 모든 `*.tf` 파일을 하나로 합쳐 읽기 때문에, `terraform init/plan/apply`는 이전과 동일하게 각 stage 디렉터리에서 수행합니다.
 
 ## 핵심 설계 원칙
 
@@ -41,6 +45,43 @@ main.tf/providers.tf/versions.tf = 실행 엔진
 │   └── azure-automation/         # ASR Recovery Plan 후처리 Runbook
 ├── ansible/                      # VM/AKS 후처리 자동화
 └── docs/                         # 설계/런북/검증 문서
+```
+
+## Terraform 파일 분리 기준
+
+### 2-environments
+
+```text
+00-csv-locals.tf              # env_config.csv, resource_groups.csv, department_environments.csv 로드
+10-resource-groups.tf         # platform/dev Resource Group 생성
+20-department-environments.tf # 부서별 환경 Resource Group 생성
+```
+
+### 3-networks-hub-and-spoke
+
+```text
+00-csv-locals.tf              # network_config, networks, subnets, routes, private_dns_zones CSV 로드
+10-data-resource-groups.tf    # 기존 RG data source 조회
+20-vnet-subnets.tf            # VNet / Subnet 생성
+30-routes-dns-peering.tf      # Route Table / Private DNS / VNet Peering 생성
+```
+
+### 5-app-infra
+
+```text
+00-csv-locals.tf              # app_config, subnet_refs, vm_workloads, aks_clusters, ai_services CSV 로드
+10-data-sources.tf            # Client Config, RG, Subnet data source 조회
+20-vm-workloads.tf            # NIC / Linux VM 생성
+30-aks-and-paas.tf            # AKS / Storage / Key Vault / Private Endpoint 생성
+```
+
+### asr/terraform
+
+```text
+00-versions-providers.tf      # Terraform required provider와 AzureRM provider
+10-locals.tf                  # ASR 공통 tags
+20-recovery-vault-and-cache.tf # ASR RG, Recovery Services Vault, Cache Storage
+30-automation-account.tf      # Azure Automation Account
 ```
 
 ## 기존 `azure-landing-zone_test03`가 이미 구축된 경우
