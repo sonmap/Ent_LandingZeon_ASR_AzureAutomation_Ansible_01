@@ -1,0 +1,3 @@
+key,department,environment,subscription_key,resource_group_name,location,network_spoke_key,data_classification,approval_required,create
+finance_dr,finance,dr,dev,rg-land03-dr-finance-jpe,japaneast,spoke_finance_dr,internal,false,false
+hr_dr,hr,dr,dev,rg-land03-dr-hr-jpe,japaneast,spoke_hr_dr,internal,false,false
