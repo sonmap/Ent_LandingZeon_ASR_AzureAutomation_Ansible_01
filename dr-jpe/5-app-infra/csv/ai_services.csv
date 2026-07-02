@@ -1,0 +1,2 @@
+key,storage_name_prefix,storage_tier,storage_replication_type,storage_public_network_access,storage_allow_nested_items_public,key_vault_name_prefix,key_vault_sku,key_vault_public_network_access,key_vault_purge_protection,key_vault_soft_delete_days,identity_type,private_endpoint_name,private_endpoint_subnet_key,private_service_connection_name,private_endpoint_subresource,create
+ai,stland03dr,Standard,LRS,false,false,kv-land03-dr,standard,false,false,7,SystemAssigned,pe-land03-dr-storage-blob,private_endpoints,psc-dr-storage-blob,blob,true
