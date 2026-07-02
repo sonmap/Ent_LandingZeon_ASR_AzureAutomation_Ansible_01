@@ -1,0 +1,4 @@
+key,name,subscription_key,resource_group_key,create
+blob,privatelink.blob.core.windows.net,platform,hub,true
+vault,privatelink.vaultcore.azure.net,platform,hub,true
+aks,privatelink.koreacentral.azmk8s.io,platform,hub,true
